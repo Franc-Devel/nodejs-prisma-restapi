@@ -151,17 +151,4 @@ El grupo deberá entregar:
 
 ***
 
-## 📌 Observación final
 
-El trabajo simula un escenario real de una aplicación de gestión o e-commerce, donde el diseño correcto del modelo de datos es clave para el desarrollo del sistema.
-
-***
-
-Si querés, en el próximo mensaje puedo:
-
-*   ✅ Adaptarlo a **grupal / individual**
-*   ✅ Simplificar o subir dificultad
-*   ✅ Armar la **rúbrica de corrección**
-*   ✅ Proponer una **extensión opcional** (JWT, roles, stock, etc.)
-
-Decime cómo lo evaluás y lo ajustamos a tu cursada 💪
