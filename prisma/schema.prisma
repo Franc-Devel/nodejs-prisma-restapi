@@ -25,3 +25,4 @@ model Category {
   name String @unique
   products Product[]
 }
+
