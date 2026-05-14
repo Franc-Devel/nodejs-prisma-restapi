@@ -6,13 +6,17 @@
 import express from "express";
 import productRoutes from "./routes/products.routes.js";
 import categoryRoutes from "./routes/categories.routes.js";
+import cors from "cors";
 
 /**
  * Instancia principal de la aplicacion Express.
  * @type {import('express').Application}
  */
+
 const app = express();
 
+
+app.use(cors()); // Habilita CORS para permitir solicitudes desde cualquier origen
 /**
  * Middleware global que parsea el body de requests con Content-Type application/json.
  * Llena req.body con los datos parseados.
