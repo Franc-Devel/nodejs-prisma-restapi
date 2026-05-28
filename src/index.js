@@ -1,42 +1,55 @@
-/**
- * @fileoverview Punto de entrada principal de la API REST.
- * Configura Express, middlewares, rutas y levanta el servidor en puerto 3000.
- */
-
 import express from "express";
 import productRoutes from "./routes/products.routes.js";
 import categoryRoutes from "./routes/categories.routes.js";
 import cors from "cors";
-
-/**
- * Instancia principal de la aplicacion Express.
- * @type {import('express').Application}
- */
+import { prisma } from "./db.js";
 
 const app = express();
+let server;
 
-
-app.use(cors()); // Habilita CORS para permitir solicitudes desde cualquier origen
-/**
- * Middleware global que parsea el body de requests con Content-Type application/json.
- * Llena req.body con los datos parseados.
- */
+app.use(cors());
+// Middleware para parsear JSON en el body de las solicitudes
 app.use(express.json());
-
-/**
- * Registra las rutas de productos bajo prefijo /api.
- * Rutas finales: /api/products, /api/products/:id
- */
 app.use("/api", productRoutes);
-
-/**
- * Registra las rutas de categorias bajo prefijo /api.
- * Rutas finales: /api/categories
- */
 app.use("/api", categoryRoutes);
 
-/**
- * Inicia el servidor HTTP escuchando en puerto 3000.
- */
-app.listen(3000);
-console.log("Server on port", 3000);
+app.use((err, req, res, next) => {
+   // Loguear el error para debug en la terminal
+   console.error(err);
+
+   res.status(err.statusCode || 500).json({
+       error: err.message || "Error Interno  del Servidor",
+   });
+});
+
+async function shutdown(signal) {
+    if (server) {
+        await new Promise((resolve) => server.close(resolve));
+    }
+
+    await prisma.$disconnect();
+
+    if (signal === "SIGUSR2") {
+        process.kill(process.pid, signal);
+        return;
+    }
+
+    process.exit(0);
+}
+
+process.once("SIGINT", () => void shutdown("SIGINT"));
+process.once("SIGTERM", () => void shutdown("SIGTERM"));
+process.once("SIGUSR2", () => void shutdown("SIGUSR2"));
+
+async function start() {
+    await prisma.$connect();
+
+    server = app.listen(3000, () => {
+        console.log("Servidor escuchando en http://localhost:3000");
+    });
+}
+
+start().catch((error) => {
+    console.error(error);
+    process.exit(1);
+});
