@@ -26,3 +26,22 @@ model Category {
   products Product[]
 }
 
+// --- MODELOS DEL MÓDULO CINE ---
+
+model Movie {
+  id        Int      @id @default(autoincrement())
+  title     String
+  director  String
+  year      Int
+  duration  Int
+  synopsis  String   @db.Text
+  genreId   Int
+  genre     Genre    @relation(fields: [genreId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  createdAt DateTime @default(now())
+}
+
+model Genre {
+  id      Int      @id @default(autoincrement())
+  name    String   @unique
+  movies  Movie[]
+}

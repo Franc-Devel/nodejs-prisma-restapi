@@ -13,15 +13,23 @@
   "license": "ISC",
   "dependencies": {
     "@prisma/adapter-mariadb": "^7.8.0",
-    "@prisma/client": "^7.0.0",
+    "@prisma/client": "^7.8.0",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
-    "express": "^4.18.2",
+    "express": "^4.22.2",
     "express-validator": "^7.3.2",
-    "morgan": "^1.10.0",
-    "prisma": "^7.0.0"
+    "morgan": "^1.10.1",
+    "prisma": "^7.8.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.22"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NahuFed/nodejs-prisma-restapi.git"
+  },
+  "bugs": {
+    "url": "https://github.com/NahuFed/nodejs-prisma-restapi/issues"
+  },
+  "homepage": "https://github.com/NahuFed/nodejs-prisma-restapi#readme"
 }
